@@ -4,8 +4,10 @@ const cors     = require("cors");
 const register = require("./controllers/register");
 const signin   = require("./controllers/signin");
 const image     = require('./controllers/image');
+const clarifai  = require('./controllers/clarifai');
 const profile  = require("./controllers/profile");
-const PORT     = process.env.PORT; //bash -> PORT=3050 node server.cjs
+// const PORT     = process.env.PORT; //bash -> PORT=3050 node server.cjs
+const PORT = 3050;
 
 const db = require('knex')({
     client: 'pg',
@@ -33,6 +35,7 @@ app.post("/register",(req, res) =>{register.handleRegister(req, res, db, bcrypt)
 app.get("/profile/:id", (req, res) =>{profile.handleRegister(req, res, db, bcrypt)});
 ///IMAGE
 app.put("/image", (req, res) =>{image.handleImage(req, res, db, bcrypt)});
-// app.post("/imageurl", (req, res) =>{image.handleApiCall(req, res)});
+//CLARIFAI
+app.post("/clarifai", (req, res) =>{clarifai.clarifai(req, res)});
 //port 3050 is being used
 app.listen(PORT, ()=>{console.log(`app is running in port ${PORT}`)});
